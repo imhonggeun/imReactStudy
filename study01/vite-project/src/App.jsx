@@ -6,7 +6,6 @@ function App() {
   const end = 4;
   const [model, setModel] = useState([])
   const [point, setPoint] = useState([2, 0])
-  const [key, setKey] = useState(0)
   const model1 = [
     [1,0,0,0,1],
     [1,0,1,0,1],
@@ -43,30 +42,44 @@ function App() {
     reset()
     setModel(model3)
   }
-  useEffect(()=> {
+  function block(key) {
+    let target = 0;
     if (model.length > 0) {
-      if(model[point[0]][point[1]] === 1) {
-        switch (key) {
-          case 37: // 왼쪽 이동
-            setPoint( [point[0], point[1] + 1] )
-            break;
-          case 38 : // 위쪽 이동
-            setPoint( [point[0] + 1, point[1]] )
-            break;
-          case 39 : // 오른쪽 이동
-            setPoint( [point[0], point[1] - 1] )
-            break;
-          case 40 : // 아래쪽 이동
-            setPoint( [point[0] - 1, point[1]] )
-            break;
-        }
+      switch (key) {
+        case 37: // 왼쪽 이동
+          if(point[1] - 1 >= start) {
+            target = model[point[0]][point[1] - 1]
+          } else {
+            target = model[point[0]][end]
+          }
+          break;
+        case 38 : // 위쪽 이동
+          if(point[0] - 1 >= start) {
+            target = model[point[0] - 1][point[1]]
+          } else {
+            target = model[end][point[1]]
+          }
+          break;
+        case 39 : // 오른쪽 이동
+          if(point[1] + 1 <= end) {
+            target = model[point[0]][point[1] + 1]
+          } else {
+            target = model[point[0]][start]
+          }
+          break;
+        case 40 : // 아래쪽 이동
+          if(point[0] + 1 <= end) {
+            target = model[point[0] + 1][point[1]]
+          } else {
+            target = model[start][point[1]]
+          }
+          break;
       }
     }
-  }, [point])
-  useEffect(()=> {
-    function keyDown(e) {
-      // console.log(1, point)
-      setKey(e.keyCode)
+    return (target === 1) ? false : true
+  }
+  function keyDown(e) {
+    if(block(e.keyCode)) {
       switch (e.keyCode) {
         case 37: // 왼쪽 이동
           if(point[1] - 1 >= start) {
@@ -97,8 +110,9 @@ function App() {
           }
           break;
       }
-      // console.log(2, point)
     }
+  }
+  useEffect(()=> {
     window.addEventListener('keydown', keyDown)
     return () => {
       window.removeEventListener('keydown', keyDown)
