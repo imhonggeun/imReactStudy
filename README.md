@@ -38,7 +38,7 @@ Ok to proceed? (y) y
   npm run dev 작성 실행
 
 
-  7.17 routor
+  7.17 router
   https://www.npmjs.com/ -> 검색 : react-router-dom
   Install : npm i react-router-dom 
   import {BrowserRouter,Routes,Route} from 'react-router' 사용
