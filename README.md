@@ -36,3 +36,11 @@ Ok to proceed? (y) y
   cd vite-project 작성
   npm install 작성
   npm run dev 작성 실행
+
+
+  7.17 routor
+  https://www.npmjs.com/ -> 검색 : react-router-dom
+  Install : npm i react-router-dom 
+  import {BrowserRouter,Routes,Route} from 'react-router' 사용
+
+  https://reactrouter.com/home 사용 설명서
