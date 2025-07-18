@@ -1,9 +1,10 @@
 import {useState, useContext, useId } from 'react'
 import { Title } from '@pages/Home.jsx'
-import { ThemeContext} from '@pages/UseThemeContext.jsx'
+import MyProvider, {useTheme} from '@pages/UseThemeContext.jsx'
 
 const Header = () => {
-  const theme = useContext(ThemeContext)
+  const theme =useTheme()
+  console.log(useTheme())
   return (
     <header style={{
       textAlign: 'center',
@@ -28,7 +29,7 @@ const InputDom = () => {
     )
 }
 const Main = () => {
-  const theme = useContext(ThemeContext)
+  const theme =useTheme()
   return (
     <main style={{
       margin: '0',
@@ -41,7 +42,7 @@ const Main = () => {
   );
 }
 const Footer = () => {
-  const theme = useContext(ThemeContext)
+  const theme =useTheme()
   return (
     <footer style={{
       textAlign: 'right',
@@ -64,13 +65,12 @@ const Step1 = () => {
 }
 
 const UseContext = () => {  
-  const [show, setShow] = useState(false)
   return (
     <>
       <Title title="useContext" />
-      <ThemeContext.Provider value={{show, setShow}}>
+      <MyProvider>
         <Step1/>
-      </ThemeContext.Provider>
+      </MyProvider>
     </>
   )
 }
