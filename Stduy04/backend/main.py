@@ -32,5 +32,6 @@ def add(num : int):
 
 @app.get("/remove")
 def remove(index : int):
-    arr.remove(index + 1)
+    # arr.remove(index + 1)
+    del arr[index]
     return {"result" : arr}
