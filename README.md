@@ -1,6 +1,11 @@
 # imReactStudy
 reacct Study
 
+frondtend : react 실행 npm run dev (실행 위치는 /frontend)
+backend : uv 실행 uv run fastapi dev(실행 위치는 /backend&package있어야됨)
+init 은 프로젝트가 없을때 생성하기 위해서 사용하고
+프로젝트가 있을 시에 위에 명령어 바로 실행
+
 React 설치
 
 https://ko.legacy.reactjs.org/ (두번째에있음)
