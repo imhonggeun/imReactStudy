@@ -1,12 +1,14 @@
 import {useState, useContext, useId } from 'react'
 import { Title } from '@pages/Home.jsx'
+import { ThemeContext} from '@pages/UseThemeContext.jsx'
 
-const Header = ({show}) => {
+const Header = () => {
+  const theme = useContext(ThemeContext)
   return (
     <header style={{
       textAlign: 'center',
-      backgroundColor: show ? 'black' : 'white',
-      color: show ? 'white' : 'black'
+      backgroundColor: theme.show ? 'black' : 'white',
+      color: theme.show ? 'white' : 'black'
       }}>
       <h1>상단글</h1>
     </header>
@@ -25,36 +27,38 @@ const InputDom = () => {
       </>
     )
 }
-const Main = ({show}) => {
+const Main = () => {
+  const theme = useContext(ThemeContext)
   return (
     <main style={{
       margin: '0',
       height: '50vh',
-      backgroundColor: show ? 'black' : 'white',
-      color: show ? 'white' : 'black'
+      backgroundColor: theme.show ? 'black' : 'white',
+      color: theme.show ? 'white' : 'black'
       }}>
       <InputDom />
     </main>
   );
 }
-const Footer = ({show, setShow}) => {
+const Footer = () => {
+  const theme = useContext(ThemeContext)
   return (
     <footer style={{
       textAlign: 'right',
-      backgroundColor: show ? 'black' : 'white',
-      color: show ? 'white' : 'black'
+      backgroundColor: theme.show ? 'black' : 'white',
+      color: theme.show ? 'white' : 'black'
       }}>
       <button type='button' onClick={() => setShow(!show)}>스타일 변경</button>
     </footer>
   )
 }
 
-const Step1 = ({show, setShow}) => {
+const Step1 = () => {
   return (
     <>
-      <Header show={show} />
-      <Main show={show} />
-      <Footer show={show} setShow={setShow} />
+      <Header  />
+      <Main  />
+      <Footer />
     </>
   )
 }
@@ -64,7 +68,9 @@ const UseContext = () => {
   return (
     <>
       <Title title="useContext" />
-      <Step1 show={show} setShow={setShow} />
+      <ThemeContext.Provider value={{show, setShow}}>
+        <Step1/>
+      </ThemeContext.Provider>
     </>
   )
 }
