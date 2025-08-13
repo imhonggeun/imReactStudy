@@ -36,3 +36,9 @@ Ok to proceed? (y) y
   cd vite-project 작성
   npm install 작성
   npm run dev 작성 실행
+
+
+정적파일
+public 에서 저장
+css 같은경우 똑같은 정적 파일이긴하나 react 같은 경우 public 에서 있을시에 에러발생
+소리같은경우도 public,src 에 있어도 상관없다
