@@ -42,3 +42,6 @@ Ok to proceed? (y) y
 public 에서 저장
 css 같은경우 똑같은 정적 파일이긴하나 react 같은 경우 public 에서 있을시에 에러발생
 소리같은경우도 public,src 에 있어도 상관없다
+
+
+# npm i react-bootstrap bootstrap react-router-dom
