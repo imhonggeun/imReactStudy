@@ -45,3 +45,15 @@ css 같은경우 똑같은 정적 파일이긴하나 react 같은 경우 public 
 
 
 # npm i react-bootstrap bootstrap react-router-dom
+
+8월 18일
+
+#
+
+npm create vite@latest app2
+npm i axios bootstrap react-router-dom
+
+1.경로변수(useParams)
+2.get 방식 파라미터 변수(useSearchParams)
+
+비동기통신

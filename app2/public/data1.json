@@ -1,0 +1,8 @@
+{
+  "status" : true,
+  "result" : [
+    {"num": 1, "name": "테스트1"},
+    {"num": 2, "name": "테스트2"},
+    {"num": 3, "name": "테스트3"}
+  ]
+}
