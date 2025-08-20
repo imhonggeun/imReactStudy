@@ -1,14 +1,14 @@
-import { BrowserRouter as Router, Routes, Route,useParams,useSearchParams  } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route, useParams, useSearchParams } from 'react-router-dom';
+import axios from 'axios'
+import { useState, useEffect } from 'react'
 
 const Home = () => {
-  const [list, setlist] = useState([])
-  useEffect(()=>{
-    axios.get("/data.json")
-    .then((res)=>{
-      if(res.data.result){
-        setlist(res.data.result)
+  const [list, setList] = useState([])
+  useEffect(() => {
+    axios.get("/data1.json")
+    .then((res) => {
+      if(res.data.status) {
+        setList(res.data.result)
       } else {
         console.log("실패")
       }
@@ -16,23 +16,28 @@ const Home = () => {
     .catch((err) => {
       console.error(err)
     })
-  },[])
-  return(
+  }, [])
+  return (
     <>
       <h1>Home</h1>
       <ul>
         {
-          list.map((row)=>{
-            return(
+          list.map((row) => {
+            return (
               <li key={row.num}>
-                <a href={'/page/' + row.num}>{row.name}</a>
+                <a href={"/page/" + row.num}>{row.name}</a>
               </li>
             )
           })
-        }
+        }        
       </ul>
     </>
-  )  
+  )
+}
+const Page1 = () => {
+  return (
+    <h1>Page1</h1>
+  )
 }
 const Page2 = () => {
   return (
@@ -40,10 +45,37 @@ const Page2 = () => {
   )
 }
 const Page = (v) => {
-  const a = useParams()
-  const b = useSearchParams()
+  const params = useParams()
+  const [sParams] = useSearchParams()
+  const [list, setList] = useState([])
+  useEffect(() => {
+    if(params.name === "2") {
+      axios.get("http://localhost:8000/data1")
+      .then((res) => {
+        if(res.data.status) {
+          setList(res.data.result)
+        } else {
+          console.log("실패")
+        }
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+    }
+  }, [])
   return (
-    <h1>page{v.name}</h1>
+    <>
+    <h1>Page{params.name}</h1>
+    <ol>
+          {
+            list?.map((row, index) => {
+              return (
+                <li key={index}><mark>{JSON.stringify(row)}</mark></li>
+              )
+            })
+          }
+    </ol>
+    </>
   )
 }
 
@@ -55,16 +87,16 @@ const App = () => {
           <a href="/">홈</a>
         </li> |
         <li style={{display: 'inline-block', padding: '5px'}}>
-          <a href="/page1">페이지1</a>
+          <a href="/page/1">페이지1</a>
         </li> |
         <li style={{display: 'inline-block', padding: '5px'}}>
-          <a href="/page2">페이지2</a>
+          <a href="/page2?name=2">페이지2</a>
         </li>
       </ul>
       <Router>
         <Routes>
-          <Route path='/page1' element={<Page name='1' />} />
-          <Route path='/page2' element={<Page name='2' />} />
+          <Route path='/page/:name' element={<Page name="1" />} />
+          <Route path='/page2' element={<Page name="2" />} />
           <Route path='*' element={<Home />} />
         </Routes>
       </Router>

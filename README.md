@@ -57,3 +57,12 @@ npm i axios bootstrap react-router-dom
 2.get 방식 파라미터 변수(useSearchParams)
 
 비동기통신
+
+
+8월 20일 backend fastapi uv
+
+# uv init backend
+# cd backend
+# uv add fastapi --extra standard
+# uv run fastapi dev
+# main.py  => coding
