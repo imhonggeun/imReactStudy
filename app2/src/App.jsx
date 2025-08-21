@@ -2,10 +2,12 @@ import { BrowserRouter as Router, Routes, Route, useParams, useSearchParams } fr
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
+
+
 const Home = () => {
   const [list, setList] = useState([])
   useEffect(() => {
-    axios.get("/data1.json")
+    axios.get("http://localhost:8000/")
     .then((res) => {
       if(res.data.status) {
         setList(res.data.result)
@@ -50,7 +52,7 @@ const Page = (v) => {
   const [list, setList] = useState([])
   useEffect(() => {
     if(params.name === "2") {
-      axios.get("http://localhost:8000/data1")
+      axios.get(`http://localhost:8000/data?table=data${params.name}`)
       .then((res) => {
         if(res.data.status) {
           setList(res.data.result)
@@ -103,5 +105,6 @@ const App = () => {
     </>
   )
 }
+
 
 export default App

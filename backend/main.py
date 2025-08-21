@@ -1,5 +1,19 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import os
+import mariadb
+
+
+
+conn_params = {
+    "user" : os.getenv('MARIADB_USER'),
+    "password" : os.getenv('MARIADB_PASSWORD'),
+    "host" : os.getenv('MARIADB_HOST'),
+    "database" : os.getenv('MARIADB_DATABASE'),
+    "port" : int(os.getenv('MARIADB_PORT'))
+}
+
+
 
 origins = [
     "http://localhost:5173",
@@ -19,15 +33,36 @@ app.add_middleware(
 
 @app.get("/")
 def home():
-  return {"status": True}
+  return {
+    "status": True
+  }
 
-@app.get("/data1")
-def data1():
+@app.get("/data")
+def data(table : str ):
   return {
     "status" : True,
-    "result" : [
-      {"num": 1, "name": "테스트1"},
-      {"num": 2, "name": "테스트2"},
-      {"num": 3, "name": "테스트3"}
-    ]
+    "result" : getData(table)
   }
+
+
+def getData(table):
+  try:
+    conn = mariadb.connect(**conn_params)
+    cur = conn.cursor()
+    sql = f"SELECT * FROM {table}"
+    cur.execute(sql)
+    columns = [col[0] for col in cur.description]
+    result = [dict(zip(columns, row)) for row in cur.fetchall()]
+  except mariadb.Error as e:
+    print(f"접속 오류 : {e}")
+  return result
+
+# def getData(table):
+#   conn = mariadb.connect(**conn_params)
+#   cur = conn.cursor()
+#   sql ="select * from data1"
+#   cur.execute(sql)
+#   conn.commit()
+
+#   cur.close()
+#   conn.close()
